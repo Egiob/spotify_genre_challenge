@@ -7,3 +7,10 @@ The labels are an array of size (n_samples, n_genres), where each genre is attri
 
 ### Metrics evaluation
 We have used a single metric : the Earth Mover's Distance (see [https://en.wikipedia.org/wiki/Earth_mover%27s_distance](https://en.wikipedia.org/wiki/Earth_mover%27s_distance)), which gives a measure of how close the genre we have predicted is close to the true genre. For example the genre *hip-hop* is quite close to the genre *rap* but quite far to the genre *pop*. To define the ground metric, we use a measure of similarity between each genre. 
+
+### Dataset
+To conceive the dataset we use the Spotify API and the playlists of the website [http://everynoise.com/](http://everynoise.com/). We sequentially add each track of the chosen playlists and we associate each of them with the genres of their artist. In addition we add the audio features of each track and the some features (segments and sections) of the audio analysis provided by Spotify.
+In order to build the dataset some steps are needed:
+- Open the file `data_constructor.ipynb` and fill the Spotify credentials with yours
+- Execute the entire notebook and wait until it is over (it can take one hour or more)
+- The dataset `spotify_dataset.csv` should have appeared in your directory
