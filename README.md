@@ -14,4 +14,5 @@ In order to build the dataset some steps are needed:
 - Open the file `data_constructor.ipynb` and fill the Spotify credentials with yours
 - Execute the entire notebook and wait until it is over (it can take one hour or more)
 - The dataset `spotify_dataset.csv` should have appeared in your directory
+
 If you directly want to download this dataset you can use this link: [https://lufi.rezel.net/r/pTJyWBE1xQ#N7PeYCNts9W6u1Z0gMtFo5OpaeOe5RfKaf3v0bwr0Lk=](https://lufi.rezel.net/r/pTJyWBE1xQ#N7PeYCNts9W6u1Z0gMtFo5OpaeOe5RfKaf3v0bwr0Lk=).
