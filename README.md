@@ -1,10 +1,11 @@
 # spotify_genre_challenge
 Contributors :
- - Ulysse Demay
- - Nadir Abdou
- - Mickael Corroyer
- - Nathan Xerri
- - Raphaël Boige
+ - Nadir ABDOU
+ - Raphaël BOIGE
+ - Mickael CORROYER
+ - Ulysse DEMAY
+ - Nathan XERRI
+
  
 A machine learning challenge which consists in predicting the genre of a music based on features from the Spotify API.
 
