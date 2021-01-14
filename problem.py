@@ -9,6 +9,7 @@ from rampwf.score_types import BaseScoreType
 from rampwf.prediction_types.base import BasePrediction
 from sklearn.model_selection import ShuffleSplit
 from rampwf.workflows import SKLearnPipeline
+from sklearn.base import is_classifier
 
 import functools
 import warnings
@@ -181,9 +182,9 @@ def make_workflow():
     return EstimatorGenre(predict_method='predict')
 
 problem_title = 'Spotify genre challenge'
-n_parcels = 25  # number of parcels in each brain used in this challenge
+n_genre = 25  # number of genre used in this challenge
 # A type (class) which will be used to create wrapper objects for y_pred
-Predictions = make_multioutput(n_columns=n_parcels)
+Predictions = make_multioutput(n_columns=n_genre)
 # An object implementing the workflow
 workflow = workflow = make_workflow()
 
