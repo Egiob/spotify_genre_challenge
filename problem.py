@@ -14,6 +14,23 @@ from sklearn.base import is_classifier
 import functools
 import warnings
 
+class JaccardError(BaseScoreType):
+    is_lower_the_better = True
+    minimum = 0.0
+    maximum = float('inf')
+
+    def __init__(self, name='jaccard error', precision=3):
+        self.name = name
+        self.precision = precision
+
+    def __call__(self, y_true_proba, y_proba):
+        mask = ~np.any(np.isnan(y_proba), axis=1)
+
+        score = 1 - jaccard_score(y_true_proba[mask],
+                                  y_proba[mask],
+                                  average='samples')
+        return score
+
 class EMDScore(BaseScoreType):
     is_lower_the_better = True
     minimum = 0.0
@@ -57,7 +74,9 @@ class EMDScore(BaseScoreType):
         return np.mean(scores)
 
 score_types = [
-    EMDScore(name='EDM score', precision=5),
+    EMDScore(name='EMD score', precision=5),
+    JaccardError(name='jaccard error', precision=5)
+
 ]
 
 
