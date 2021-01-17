@@ -1,14 +1,4 @@
-
-import pandas as pd
-import ast
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-import joblib
-
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import jaccard_score
 from sklearn.compose import make_column_transformer
 from sklearn.pipeline import make_pipeline
 

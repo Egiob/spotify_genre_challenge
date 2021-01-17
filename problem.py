@@ -8,8 +8,10 @@ import rampwf as rw
 from rampwf.score_types import BaseScoreType
 from rampwf.prediction_types.base import BasePrediction
 from sklearn.model_selection import ShuffleSplit
+from skmultilearn.model_selection import IterativeStratification
 from rampwf.workflows import SKLearnPipeline
 from sklearn.base import is_classifier
+from sklearn.metrics import jaccard_score
 
 import functools
 import warnings
@@ -28,7 +30,8 @@ class JaccardError(BaseScoreType):
 
         score = 1 - jaccard_score(y_true_proba[mask],
                                   y_proba[mask],
-                                  average='samples')
+                                  average='samples',
+                                  zero_division=0)
         return score
 
 class EMDScore(BaseScoreType):
@@ -209,9 +212,8 @@ workflow = workflow = make_workflow()
 
 
 def get_cv(X, y):
-    cv = ShuffleSplit(n_splits=8, test_size=0.20, random_state=42)
-    
-    return cv.split(X, y)
+    stratifier = IterativeStratification(n_splits=8)
+    return stratifier.split(X, y)
 
 
 def _read_data(path, f_name_X, f_name_y):
