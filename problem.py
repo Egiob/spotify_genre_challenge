@@ -3,18 +3,15 @@ import os
 import numpy as np
 import pandas as pd
 from ot import emd2
-import rampwf as rw
-
 from rampwf.score_types import BaseScoreType
 from rampwf.prediction_types.base import BasePrediction
-from sklearn.model_selection import ShuffleSplit
 from skmultilearn.model_selection import IterativeStratification
 from rampwf.workflows import SKLearnPipeline
 from sklearn.base import is_classifier
 from sklearn.metrics import jaccard_score
-
 import functools
 import warnings
+
 
 class JaccardError(BaseScoreType):
     is_lower_the_better = True
@@ -33,6 +30,7 @@ class JaccardError(BaseScoreType):
                                   average='samples',
                                   zero_division=0)
         return score
+
 
 class EMDScore(BaseScoreType):
     is_lower_the_better = True
@@ -75,6 +73,7 @@ class EMDScore(BaseScoreType):
         assert len(scores) == len(y_true_proba)
         assert len(y_proba) == len(y_true_proba)
         return np.mean(scores)
+
 
 score_types = [
     EMDScore(name='EMD score', precision=5),
@@ -199,9 +198,11 @@ class EstimatorGenre(SKLearnPipeline):
         y_pred_full[mask] = y_pred
         return y_pred_full
 
+
 def make_workflow():
     # defines new workflow, where predict instead of predict_proba is called
     return EstimatorGenre(predict_method='predict')
+
 
 problem_title = 'Spotify genre challenge'
 n_genre = 25  # number of genre used in this challenge
@@ -219,7 +220,6 @@ def get_cv(X, y):
 def _read_data(path, f_name_X, f_name_y):
     X_df = pd.read_csv(os.path.join(path, 'data', f_name_X), sep=';').drop(['Unnamed: 0'], axis=1)
     y_array = pd.read_csv(os.path.join(path, 'data', f_name_y), sep=';').drop(['Unnamed: 0'], axis=1).values
-    
     return X_df, y_array
 
 
@@ -237,17 +237,16 @@ def get_test_data(path='.'):
     return _read_data(path, f_name_X, f_name_y)
 
 
-
 def reduce_metric(genres, metric, genre_index, reset_distance=False):
     """
     Args:
         genres (list) : the list of the genres we want to consider
         metric (matrix) : the matrix of the metric
-        genre index (dict)
+        genre index (dict) : a map from genres to index
         reset_distance (bool) : whether or not reset the distance to [1, nb_class]
     """
     idx = [genre_index[i] for i in genres]
-    new_metric = metric[idx][:,idx]
+    new_metric = metric[idx][:, idx]
     if reset_distance:
-        new_metric = np.array([new_metric[i].argsort() for i in range(len(new_metric))],dtype=np.float16)
+        new_metric = np.array([new_metric[i].argsort() for i in range(len(new_metric))], dtype=np.float16)
     return new_metric
