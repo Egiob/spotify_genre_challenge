@@ -1,11 +1,10 @@
 ramp-utils
 numpy
 matplotlib
-sklearn
+scikit-learn
 pandas
 jupyter
 ramp-workflow
 seaborn
-geopandas
-folium
 pot
+scikit-multilearn
